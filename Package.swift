@@ -21,7 +21,7 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "iMoviesAPI",
-            dependencies: []),
+            dependencies: ["Alamofire.git"]),
         .testTarget(
             name: "iMoviesAPITests",
             dependencies: ["iMoviesAPI"]),
