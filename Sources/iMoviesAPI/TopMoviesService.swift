@@ -23,7 +23,9 @@ public class TopMoviesService: TopMoviesServiceProtocol {
     public init() { }
     
     public func fetchTopMovies(completion: @escaping (Result<TopMoviesResponse>) -> Void) {
-        let urlString = "https://rss.itunes.apple.com/api/v1/us/movies/top-movies/all/25/explicit.json"
+        let urlString = "https://api.nytimes.com/svc/movies/v2/reviews/search.json?query=godfather&api-key=B3M0Vedeti0VV9HW2cPCOqDd4evgmmtG" 
+
+        // "https://rss.itunes.apple.com/api/v1/us/movies/top-movies/all/25/explicit.json"
         
         AF.request(urlString).responseData { (response) in
             switch response.result {
