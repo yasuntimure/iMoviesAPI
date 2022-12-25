@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - SearchReponseModel
-struct SearchReponseModel: Codable {
+public struct SearchReponseModel: Codable {
     let status, copyright: String?
     let hasMore: Bool?
     let numResults: Int?
@@ -23,7 +23,7 @@ struct SearchReponseModel: Codable {
 }
 
 // MARK: - Result
-struct Result: Codable {
+public struct Result: Codable {
     let displayTitle, mpaaRating: String?
     let criticsPick: Int?
     let byline, headline, summaryShort, publicationDate: String?
@@ -32,7 +32,7 @@ struct Result: Codable {
     let link: Link?
     let multimedia: Multimedia?
 
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case displayTitle = "display_title"
         case mpaaRating = "mpaa_rating"
         case criticsPick = "critics_pick"
@@ -46,7 +46,7 @@ struct Result: Codable {
 }
 
 // MARK: - Link
-struct Link: Codable {
+public struct Link: Codable {
     let type: TypeEnum?
     let url: String?
     let suggestedLinkText: String?
@@ -57,12 +57,12 @@ struct Link: Codable {
     }
 }
 
-enum TypeEnum: String, Codable {
+public enum TypeEnum: String, Codable {
     case article = "article"
 }
 
 // MARK: - Multimedia
-struct Multimedia: Codable {
+public struct Multimedia: Codable {
     let type: String?
     let src: String?
     let height, width: Int?
