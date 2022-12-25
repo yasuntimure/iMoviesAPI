@@ -8,24 +8,29 @@
 import Foundation
 
 // MARK: - URLSession Version
-final class WebService {
+public class WebService {
 
-    static let shared = WebService()
+    public static let shared = WebService()
 
     private let apiKey: String = "B3M0Vedeti0VV9HW2cPCOqDd4evgmmtG"
 
-    func search(movie: String, completion: @escaping (SearchReponseModel?) -> Void) {
+    public func search(movie: String, completion: @escaping (SearchReponseModel?) -> Void) {
 
         let urlString = "https://api.nytimes.com/svc/movies/v2/reviews/search.json?query=\(movie)&api-key=\(apiKey)"
 
-        let url = URL(string: urlString)
+        guard let url = URL(string: urlString) else { return }
 
-        URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
 
             if let error = error {
                 print(error.localizedDescription)
                 completion(nil)
             }
+
+            guard let data = data else {
+                return
+            }
+
 
             let result = try? JSONDecoder().decode(SearchReponseModel.self, from: data)
 

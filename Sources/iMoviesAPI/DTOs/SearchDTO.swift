@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SearchDTO: Codable {
+public struct SearchDTO: Codable {
 
     let movieName: String
 
