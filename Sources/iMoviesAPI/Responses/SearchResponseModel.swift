@@ -9,10 +9,10 @@ import Foundation
 
 // MARK: - SearchReponseModel
 public struct SearchReponseModel: Codable {
-    let status, copyright: String?
-    let hasMore: Bool?
-    let numResults: Int?
-    let results: [Result]?
+    public let status, copyright: String?
+    public let hasMore: Bool?
+    public let numResults: Int?
+    public let results: [Result]?
 
     enum CodingKeys: String, CodingKey {
         case status, copyright
@@ -24,13 +24,13 @@ public struct SearchReponseModel: Codable {
 
 // MARK: - Result
 public struct Result: Codable {
-    let displayTitle, mpaaRating: String?
-    let criticsPick: Int?
-    let byline, headline, summaryShort, publicationDate: String?
-    let openingDate: String?
-    let dateUpdated: String?
-    let link: Link?
-    let multimedia: Multimedia?
+    public let displayTitle, mpaaRating: String?
+    public let criticsPick: Int?
+    public let byline, headline, summaryShort, publicationDate: String?
+    public let openingDate: String?
+    public let dateUpdated: String?
+    public let link: Link?
+    public let multimedia: Multimedia?
 
     public enum CodingKeys: String, CodingKey {
         case displayTitle = "display_title"
@@ -47,11 +47,11 @@ public struct Result: Codable {
 
 // MARK: - Link
 public struct Link: Codable {
-    let type: TypeEnum?
-    let url: String?
-    let suggestedLinkText: String?
+    public let type: TypeEnum?
+    public let url: String?
+    public let suggestedLinkText: String?
 
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case type, url
         case suggestedLinkText = "suggested_link_text"
     }
@@ -63,8 +63,8 @@ public enum TypeEnum: String, Codable {
 
 // MARK: - Multimedia
 public struct Multimedia: Codable {
-    let type: String?
-    let src: String?
-    let height, width: Int?
+    public let type: String?
+    public let src: String?
+    public let height, width: Int?
 }
 

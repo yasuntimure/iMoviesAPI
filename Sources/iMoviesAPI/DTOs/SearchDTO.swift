@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct SearchDTO: Decodable {
+struct SearchDTO: Codable {
 
     let movieName: String
 
-    enum SearchDTO: String, CodingKey {
+    enum CodingKeys: String, CodingKey {
         case movieName = "query"
     }
 
