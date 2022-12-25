@@ -7,10 +7,14 @@
 
 import Foundation
 
+public protocol WebServiceProtocol {
+    func search(movie: String, completion: @escaping (SearchReponseModel?) -> Void)
+}
+
 // MARK: - URLSession Version
 public class WebService {
 
-    public static let shared = WebService()
+    public init() { }
 
     private let apiKey: String = "B3M0Vedeti0VV9HW2cPCOqDd4evgmmtG"
 
