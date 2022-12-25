@@ -8,7 +8,7 @@
 import Foundation
 
 public protocol WebServiceProtocol {
-    func search(movie: String, completion: @escaping (SearchReponseModel?) -> Void)
+    public func search(movie: String, completion: @escaping (SearchReponseModel?) -> Void)
 }
 
 // MARK: - URLSession Version
