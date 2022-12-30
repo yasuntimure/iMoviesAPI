@@ -7,6 +7,8 @@
 
 import Foundation
 
+
+
 // MARK: - SearchReponseModel
 public struct SearchReponseModel: Codable {
     public let status, copyright: String?
