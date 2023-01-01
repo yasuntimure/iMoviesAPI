@@ -14,7 +14,7 @@ public struct SearchReponseModel: Codable {
     public let status, copyright: String?
     public let hasMore: Bool?
     public let numResults: Int?
-    public let results: [Result]?
+    public let results: [Movie]?
 
     enum CodingKeys: String, CodingKey {
         case status, copyright
@@ -25,7 +25,7 @@ public struct SearchReponseModel: Codable {
 }
 
 // MARK: - Result
-public struct Result: Codable {
+public struct Movie: Codable {
     public let displayTitle, mpaaRating: String?
     public let criticsPick: Int?
     public let byline, headline, summaryShort, publicationDate: String?

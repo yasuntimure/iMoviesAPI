@@ -8,7 +8,7 @@
 import Foundation
 
 public protocol WebServiceProtocol {
-    func search(movie: String, completion: @escaping ([Result]?) -> Void)
+    func search(movie: String, completion: @escaping ([Movie]?) -> Void)
 }
 
 // MARK: - URLSession Version
@@ -18,7 +18,7 @@ public class WebService: WebServiceProtocol {
 
     private let apiKey: String = "B3M0Vedeti0VV9HW2cPCOqDd4evgmmtG"
 
-    public func search(movie: String, completion: @escaping ([Result]?) -> Void) {
+    public func search(movie: String, completion: @escaping ([Movie]?) -> Void) {
 
         let urlString = "https://api.nytimes.com/svc/movies/v2/reviews/search.json?query=\(movie)&api-key=\(apiKey)"
 
@@ -37,7 +37,7 @@ public class WebService: WebServiceProtocol {
                 return
             }
 
-            let decodedData = try? JSONDecoder().decode(SearchReponseModel.self, from: data)
+            let decodedData = try? Decoders.plainDateDecoder.decode(SearchReponseModel.self, from: data)
 
             if let results = decodedData?.results {
                 print(results)
