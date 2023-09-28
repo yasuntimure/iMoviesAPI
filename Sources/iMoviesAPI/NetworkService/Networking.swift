@@ -16,6 +16,9 @@ public protocol NetworkingProtocol {
 // MARK: - Networking Class
 
 public final class Networking: NetworkingProtocol {
+
+    public init() {}
+    
     public func request<T: Decodable>(_ endpoint: Endpoint) async throws -> T {
         guard let request = endpoint.request else { throw NetworkError.invalidRequest }
 
