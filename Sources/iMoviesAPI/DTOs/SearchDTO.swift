@@ -9,10 +9,14 @@ import Foundation
 
 public struct SearchDTO: Codable {
 
-    public let movieName: String
+    public let query: String
+
+    public init(query: String) {
+        self.query = query
+    }
 
     public enum CodingKeys: String, CodingKey {
-        case movieName = "query"
+        case query = "query"
     }
 
 }
