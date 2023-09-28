@@ -9,9 +9,9 @@ import Foundation
 
 public struct SearchDTO: Codable {
 
-    let movieName: String
+    public let movieName: String
 
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case movieName = "query"
     }
 
