@@ -36,7 +36,7 @@ extension Endpoint {
 
         if let httpHeaders = httpHeaders {
             dump("Http Headers: \(String(describing: httpHeaders))")
-            httpHeaders?.forEach { element in // element ["X-MBX-APIKEY": "binance_api_key_here"] as an example
+            httpHeaders?.forEach { element in 
                 request.setValue(
                     element.value,
                     forHTTPHeaderField: element.key

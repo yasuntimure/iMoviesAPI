@@ -50,5 +50,5 @@ public enum SearchEndpoint: Endpoint {
 }
 
 private struct Keys {
-    static let apiKey: HTTPHeaders = HTTPHeaders(["api-key": "B3M0Vedeti0VV9HW2cPCOqDd4evgmmtG"])
+    static let apiKey: HTTPHeaders = HTTPHeaders(["api-key": "ArGCqkJOydI3TBaOOFaymbFfy891tP2x"])
 }
