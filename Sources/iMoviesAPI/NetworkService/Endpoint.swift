@@ -30,9 +30,19 @@ extension Endpoint {
         urlComponents.scheme = scheme
         urlComponents.host = host
         urlComponents.path = endpoint
+
+        switch httpTask {
+        case .requestParameters(let parameters, .url):
+            if let parameters = parameters as? [String: String] {
+                urlComponents.queryItems = parameters.map { URLQueryItem(name: $0.key, value: $0.value) }
+            }
+        default: break
+        }
+
         guard let url = urlComponents.url else { return nil }
         var request = URLRequest(url: url)
         request.httpMethod = httpMethod.rawValue
+
 
         if let httpHeaders = httpHeaders {
             dump("Http Headers: \(String(describing: httpHeaders))")
