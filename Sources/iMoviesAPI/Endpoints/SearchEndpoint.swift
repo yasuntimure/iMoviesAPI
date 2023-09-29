@@ -16,7 +16,7 @@ public enum SearchEndpoint: Endpoint {
     public var request: URLRequest? {
         switch self {
         case .search:
-            return request("/svc/movies/v2/reviews/search")
+            return request("/svc/movies/v2/reviews/search.json")
         }
     }
 
@@ -50,5 +50,5 @@ public enum SearchEndpoint: Endpoint {
 }
 
 private struct Keys {
-    static let apiKey: HTTPHeaders = HTTPHeaders(["api-key": "ArGCqkJOydI3TBaOOFaymbFfy891tP2x"])
+    static let apiKey: HTTPHeaders = ["api-key": "ArGCqkJOydI3TBaOOFaymbFfy891tP2x"]
 }

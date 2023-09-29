@@ -53,6 +53,7 @@ extension Endpoint {
                 )
             }
         }
+
         return request
     }
 }
