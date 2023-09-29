@@ -39,20 +39,19 @@ extension Endpoint {
         default: break
         }
 
-        guard let url = urlComponents.url else { return nil }
-        var request = URLRequest(url: url)
-        request.httpMethod = httpMethod.rawValue
-
-
         if let httpHeaders = httpHeaders {
             dump("Http Headers: \(String(describing: httpHeaders))")
-            httpHeaders?.forEach { element in 
+            httpHeaders?.forEach { element in
                 request.setValue(
                     element.value,
                     forHTTPHeaderField: element.key
                 )
             }
         }
+
+        guard let url = urlComponents.url else { return nil }
+        var request = URLRequest(url: url)
+        request.httpMethod = httpMethod.rawValue
 
         return request
     }
