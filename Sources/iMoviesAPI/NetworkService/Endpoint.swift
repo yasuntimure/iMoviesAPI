@@ -41,7 +41,9 @@ extension Endpoint {
 
         if let httpHeaders = httpHeaders {
             dump("Http Headers: \(String(describing: httpHeaders))")
-            urlComponents.queryItems = httpHeaders?.map { URLQueryItem(name: $0.key, value: $0.value) }
+            if let queryItems = httpHeaders?.map({ URLQueryItem(name: $0.key, value: $0.value) }) {
+                urlComponents.queryItems?.append(contentsOf: queryItems)
+            }
         }
 
         guard let url = urlComponents.url else { return nil }
