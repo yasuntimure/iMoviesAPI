@@ -7,66 +7,87 @@
 
 import Foundation
 
+// This file was generated from JSON Schema using quicktype, do not modify it directly.
+// To parse the JSON, add this file to your project and do:
+//
+//   let searchReponseModel = try? JSONDecoder().decode(SearchReponseModel.self, from: jsonData)
 
+import Foundation
 
 // MARK: - SearchReponseModel
 public struct SearchReponseModel: Codable {
-    public let status, copyright: String?
-    public let hasMore: Bool?
-    public let numResults: Int?
+    public let dates: Dates?
+    public let page: Int?
     public let results: [Movie]?
+    public let totalPages, totalResults: Int?
 
     enum CodingKeys: String, CodingKey {
-        case status, copyright
-        case hasMore = "has_more"
-        case numResults = "num_results"
-        case results
+        case dates, page, results
+        case totalPages = "total_pages"
+        case totalResults = "total_results"
+    }
+
+    public init(dates: Dates?, page: Int?, results: [Movie]?, totalPages: Int?, totalResults: Int?) {
+        self.dates = dates
+        self.page = page
+        self.results = results
+        self.totalPages = totalPages
+        self.totalResults = totalResults
+    }
+}
+
+// MARK: - Dates
+public struct Dates: Codable {
+    public let maximum, minimum: String?
+
+    public init(maximum: String?, minimum: String?) {
+        self.maximum = maximum
+        self.minimum = minimum
     }
 }
 
 // MARK: - Result
 public struct Movie: Codable {
-    public let displayTitle, mpaaRating: String?
-    public let criticsPick: Int?
-    public let byline, headline, summaryShort, publicationDate: String?
-    public let openingDate: String?
-    public let dateUpdated: String?
-    public let link: Link?
-    public let multimedia: Multimedia?
+    public let adult: Bool?
+    public let backdropPath: String?
+    public let genreIDS: [Int]?
+    public let id: Int?
+    public let originalLanguage, originalTitle, overview: String?
+    public let popularity: Double?
+    public let posterPath, releaseDate, title: String?
+    public let video: Bool?
+    public let voteAverage: Double?
+    public let voteCount: Int?
 
-    public enum CodingKeys: String, CodingKey {
-        case displayTitle = "display_title"
-        case mpaaRating = "mpaa_rating"
-        case criticsPick = "critics_pick"
-        case byline, headline
-        case summaryShort = "summary_short"
-        case publicationDate = "publication_date"
-        case openingDate = "opening_date"
-        case dateUpdated = "date_updated"
-        case link, multimedia
+    enum CodingKeys: String, CodingKey {
+        case adult
+        case backdropPath = "backdrop_path"
+        case genreIDS = "genre_ids"
+        case id
+        case originalLanguage = "original_language"
+        case originalTitle = "original_title"
+        case overview, popularity
+        case posterPath = "poster_path"
+        case releaseDate = "release_date"
+        case title, video
+        case voteAverage = "vote_average"
+        case voteCount = "vote_count"
+    }
+
+    public init(adult: Bool?, backdropPath: String?, genreIDS: [Int]?, id: Int?, originalLanguage: String?, originalTitle: String?, overview: String?, popularity: Double?, posterPath: String?, releaseDate: String?, title: String?, video: Bool?, voteAverage: Double?, voteCount: Int?) {
+        self.adult = adult
+        self.backdropPath = backdropPath
+        self.genreIDS = genreIDS
+        self.id = id
+        self.originalLanguage = originalLanguage
+        self.originalTitle = originalTitle
+        self.overview = overview
+        self.popularity = popularity
+        self.posterPath = posterPath
+        self.releaseDate = releaseDate
+        self.title = title
+        self.video = video
+        self.voteAverage = voteAverage
+        self.voteCount = voteCount
     }
 }
-
-// MARK: - Link
-public struct Link: Codable {
-    public let type: TypeEnum?
-    public let url: String?
-    public let suggestedLinkText: String?
-
-    public enum CodingKeys: String, CodingKey {
-        case type, url
-        case suggestedLinkText = "suggested_link_text"
-    }
-}
-
-public enum TypeEnum: String, Codable {
-    case article = "article"
-}
-
-// MARK: - Multimedia
-public struct Multimedia: Codable {
-    public let type: String?
-    public let src: String?
-    public let height, width: Int?
-}
-

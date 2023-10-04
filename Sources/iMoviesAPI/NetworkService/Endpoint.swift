@@ -23,7 +23,7 @@ extension Endpoint {
 
     public var scheme: String { "https" }
 
-    public var host: String { "api.nytimes.com" }
+    public var host: String { "api.themoviedb.org" }
 
     public func request(_ endpoint: String) -> URLRequest? {
         var urlComponents = URLComponents()

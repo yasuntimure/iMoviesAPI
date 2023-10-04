@@ -9,46 +9,46 @@ import Foundation
 
 // MARK: - Search Endpoint
 
-public enum SearchEndpoint: Endpoint {
+public enum MovieEndpoint: Endpoint {
 
-    case search(dto: SearchDTO)
+    case upcoming
 
     public var request: URLRequest? {
         switch self {
-        case .search:
-            return request("/svc/movies/v2/reviews/search.json")
+        case .upcoming:
+            return request("/3/movie/upcoming")
         }
     }
 
     public var httpMethod: HTTPMethod {
         switch self {
-        case .search:
+        case .upcoming:
             return .GET
         }
     }
 
     public var httpHeaders: HTTPHeaders? {
         switch self {
-        case .search: 
+        case .upcoming: 
             return Keys.apiKey
         }
     }
 
     public var httpTask: HTTPTask {
         switch self {
-        case .search(let dto):
-            return .requestParameters(parameters: try? dto.asDictionary(), encoding: .url)
+        case .upcoming:
+            return .requestPlain
         }
     }
 
     public var useToken: Bool {
         switch self {
-        case .search:
+        case .upcoming:
             return false
         }
     }
 }
 
 private struct Keys {
-    static let apiKey: HTTPHeaders = ["api-key": "9WqZwhNwMGsU8GWuO5RWq8N6Z68EmRZv"]
+    static let apiKey: HTTPHeaders = ["api_key": "c2d9e79ed7d1ce1a1f1eb7ddac3f84b6"]
 }
