@@ -31,28 +31,38 @@ extension Endpoint {
         urlComponents.host = host
         urlComponents.path = endpoint
 
+        var queryItems: [URLQueryItem] = []
+
+        // Always add api_key to the request
+        let apiKeyItem = URLQueryItem(name: "api_key", value: "c2d9e79ed7d1ce1a1f1eb7ddac3f84b6")
+        queryItems.append(apiKeyItem)
+
         switch httpTask {
         case .requestParameters(let parameters, .url):
             if let parameters = parameters as? [String: String] {
-                urlComponents.queryItems = parameters.map { URLQueryItem(name: $0.key, value: $0.value) }
+                let parameterItems = parameters.map { URLQueryItem(name: $0.key, value: $0.value) }
+                queryItems.append(contentsOf: parameterItems)
             }
         default: break
         }
 
-        if let httpHeaders = httpHeaders {
-            dump("Http Headers: \(String(describing: httpHeaders))")
-            if let queryItems = httpHeaders?.map({ URLQueryItem(name: $0.key, value: $0.value) }) {
-                urlComponents.queryItems?.append(contentsOf: queryItems)
-            }
-        }
+        urlComponents.queryItems = queryItems
 
         guard let url = urlComponents.url else { return nil }
         var request = URLRequest(url: url)
         request.httpMethod = httpMethod.rawValue
 
+        if let headers = httpHeaders {
+            for (key, value) in headers {
+                request.addValue(value, forHTTPHeaderField: key)
+            }
+        }
+
         return request
     }
+
 }
+
 
 
 // MARK: - HTTPMethod
@@ -68,7 +78,7 @@ public enum HTTPMethod: String {
 
 // MARK: - HTTPHeaders
 
-public typealias HTTPHeaders = [String : String]?
+public typealias HTTPHeaders = [String : String]
 
 
 // MARK: - HTTPTask

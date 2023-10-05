@@ -20,16 +20,24 @@ public final class Networking: NetworkingProtocol {
     public init() {}
     
     public func request<T: Decodable>(_ endpoint: Endpoint) async throws -> T {
-        guard let request = endpoint.request else { throw NetworkError.invalidRequest }
+        guard let request = endpoint.request else {
+            throw NetworkError.invalidRequest
+        }
 
         let (data, response) = try await URLSession.shared.data(for: request)
 
-        guard let httpResponse = response as? HTTPURLResponse else { throw NetworkError.responseUnsuccessful }
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw NetworkError.responseUnsuccessful
+        }
 
         switch httpResponse.statusCode {
         case 200...299:
-            let responseObject = try JSONDecoder().decode(T.self, from: data)
-            return responseObject
+            do {
+                let responseObject = try JSONDecoder().decode(T.self, from: data)
+                return responseObject
+            } catch let decodeError {
+                throw decodeError
+            }
         case 400...499:
             throw NetworkError.notFound
         case 500...599:

@@ -7,15 +7,8 @@
 
 import Foundation
 
-// This file was generated from JSON Schema using quicktype, do not modify it directly.
-// To parse the JSON, add this file to your project and do:
-//
-//   let searchReponseModel = try? JSONDecoder().decode(SearchReponseModel.self, from: jsonData)
-
-import Foundation
-
-// MARK: - SearchReponseModel
-public struct SearchReponseModel: Codable {
+// MARK: - UpcomingReponseModel
+public struct UpcomingReponseModel: Codable {
     public let dates: Dates?
     public let page: Int?
     public let results: [Movie]?

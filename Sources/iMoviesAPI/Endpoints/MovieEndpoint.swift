@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - Search Endpoint
+// MARK: - Movie Endpoint
 
 public enum MovieEndpoint: Endpoint {
 
@@ -30,7 +30,7 @@ public enum MovieEndpoint: Endpoint {
     public var httpHeaders: HTTPHeaders? {
         switch self {
         case .upcoming: 
-            return Keys.apiKey
+            return nil
         }
     }
 
@@ -47,8 +47,4 @@ public enum MovieEndpoint: Endpoint {
             return false
         }
     }
-}
-
-private struct Keys {
-    static let apiKey: HTTPHeaders = ["api_key": "c2d9e79ed7d1ce1a1f1eb7ddac3f84b6"]
 }

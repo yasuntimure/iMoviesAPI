@@ -37,7 +37,7 @@ public class WebService: WebServiceProtocol {
                 return
             }
 
-            let decodedData = try? Decoders.plainDateDecoder.decode(SearchReponseModel.self, from: data)
+            let decodedData = try? Decoders.plainDateDecoder.decode(UpcomingReponseModel.self, from: data)
 
             if let results = decodedData?.results {
                 print(results)
