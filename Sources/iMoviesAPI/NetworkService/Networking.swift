@@ -6,11 +6,13 @@
 //
 
 import Foundation
+import Combine
 
 // MARK: - NetworkingProtocol
 
 public protocol NetworkingProtocol {
     func request<T: Decodable>(_ endpoint: Endpoint) async throws -> T
+    func request<T: Codable>(_ endpoint: Endpoint, for type: T.Type) -> AnyPublisher<T, Error>
 }
 
 // MARK: - Networking Class
@@ -45,5 +47,32 @@ public final class Networking: NetworkingProtocol {
         default:
             throw NetworkError.unknownError
         }
+    }
+
+    public func request<T>(_ endpoint: Endpoint, for type: T.Type) -> AnyPublisher<T, Error> where T : Decodable {
+
+        guard let request = endpoint.request else {
+            return Fail(error: NetworkError.invalidRequest).eraseToAnyPublisher()
+        }
+
+        return URLSession.shared.dataTaskPublisher(for: request)
+            .tryMap { (data, response) -> Data in
+                guard let httpResponse = response as? HTTPURLResponse else {
+                    throw NetworkError.responseUnsuccessful
+                }
+
+                switch httpResponse.statusCode {
+                case 200...299:
+                    return data
+                case 400...499:
+                    throw NetworkError.notFound
+                case 500...599:
+                    throw NetworkError.badRequest
+                default:
+                    throw NetworkError.unknownError
+                }
+            }
+            .decode(type: T.self, decoder: JSONDecoder())
+            .eraseToAnyPublisher()
     }
 }
