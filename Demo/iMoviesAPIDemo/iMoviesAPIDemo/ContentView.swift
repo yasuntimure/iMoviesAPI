@@ -46,13 +46,13 @@ final class ViewModel: ObservableObject {
     var cancellables = Set<AnyCancellable>()
 
     @Published var asyncAwaitMovies: [Movie] = []
-    @Published var combineMovies: [Movie] = []
+    @Published var combineMovies: [Movie]? = []
     @Published var type: FetchDemoType = .asyncAwait
 
     var movies: [Movie] {
         switch type {
         case .asyncAwait: asyncAwaitMovies
-        case .combine: combineMovies
+        case .combine: combineMovies ?? []
         }
     }
 
@@ -76,9 +76,6 @@ final class ViewModel: ObservableObject {
     func fetchMoviesCombine() {
         networking.request(endpoint, for: UpcomingReponseModel.self)
             .map(\.results)
-            .catch{ error in
-                return Just([])
-            }
             .receive(on: DispatchQueue.main)
             .sink { completion in
                 switch completion {
@@ -90,6 +87,13 @@ final class ViewModel: ObservableObject {
                 self?.combineMovies = movies ?? []
             }
             .store(in: &cancellables)
+
+        // MARK: Different syntax, same thing
+        // networking.request(endpoint, for: UpcomingReponseModel.self)
+        //      .map(\.results)
+        //      .receive(on: DispatchQueue.main)
+        //      .replaceError(with: [])
+        //      .assign(to: &$combineMovies)
     }
 }
 
