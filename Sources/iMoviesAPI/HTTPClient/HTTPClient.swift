@@ -12,7 +12,7 @@ import Combine
 
 public protocol HTTPClient {
     func request<T: Decodable>(_ endpoint: Endpoint) async throws -> T
-    func request<T: Codable>(_ endpoint: Endpoint, for type: T.Type) -> AnyPublisher<T, Error>
+    func request<T: Codable>(_ endpoint: Endpoint, for type: T.Type, qos: DispatchQoS.QoSClass) -> AnyPublisher<T, Error>
 }
 
 // MARK: - Networking Class
