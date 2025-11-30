@@ -49,13 +49,14 @@ public final class Networking: HTTPClient {
         }
     }
 
-    public func request<T: Decodable>(_ endpoint: Endpoint, for type: T.Type) -> AnyPublisher<T, Error> {
+    public func request<T: Decodable>(_ endpoint: Endpoint, for type: T.Type, qos: DispatchQoS.QoSClass = .userInitiated) -> AnyPublisher<T, Error> {
 
         guard let request = endpoint.request else {
             return Fail(error: NetworkError.invalidRequest).eraseToAnyPublisher()
         }
 
         return URLSession.shared.dataTaskPublisher(for: request)
+            .subscribe(on: DispatchQueue.global(qos: .user))
             .tryMap { (data, response) -> Data in
                 guard let httpResponse = response as? HTTPURLResponse else {
                     throw NetworkError.responseUnsuccessful
