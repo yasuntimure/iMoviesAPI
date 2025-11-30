@@ -56,7 +56,7 @@ public final class Networking: HTTPClient {
         }
 
         return URLSession.shared.dataTaskPublisher(for: request)
-            .subscribe(on: DispatchQueue.global(qos: .user))
+            .subscribe(on: DispatchQueue.global(qos: qos))
             .tryMap { (data, response) -> Data in
                 guard let httpResponse = response as? HTTPURLResponse else {
                     throw NetworkError.responseUnsuccessful
